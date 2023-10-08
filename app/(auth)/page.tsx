@@ -1,8 +1,9 @@
 'use client'
 
 import Input from "@/components/Input"
+import axios from "axios"
+import { signIn } from "next-auth/react"
 import Image from "next/image"
-import Link from "next/link"
 import { useCallback, useState } from "react"
 
 const Auth = () => {
@@ -16,6 +17,34 @@ const Auth = () => {
     const toggleVariant = useCallback(() => {
         setVariant((currentVariant) => currentVariant === 'login' ? 'register' : 'login')
     }, [])
+
+    // makes api request for registering the user
+    const register = useCallback(async () => {
+        try {
+            // need to define this route
+            await axios.post('/api/register', {
+                email,
+                name,
+                password
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }, [email, name, password])
+
+    // using signIn method from next-auth
+    const login = useCallback(async () => {
+        try {
+            await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
+                callbackUrl: '/'
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }, [email, password])
 
     return (
         <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
@@ -59,7 +88,7 @@ const Auth = () => {
                                 value={password}
                             />
                         </div>
-                        <button
+                        <button onClick={variant === 'login' ? login : register}
                             className="bg-red-600 py-3 text-white rounded-md w-full mt-10 hover:bg-red-700 transition"
                         >
                             {variant === 'register' ? 'Register' : 'Login'}
@@ -90,7 +119,7 @@ const Auth = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
