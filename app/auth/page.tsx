@@ -4,7 +4,6 @@ import Input from "@/components/Input"
 import axios from "axios"
 import { signIn } from "next-auth/react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import { useCallback, useState } from "react"
 
 import { FcGoogle } from 'react-icons/fc'
@@ -12,8 +11,6 @@ import { FaGithub } from 'react-icons/fa'
 
 
 const Auth = () => {
-
-    const router = useRouter()
 
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
@@ -31,15 +28,13 @@ const Auth = () => {
             await signIn('credentials', {
                 email,
                 password,
-                redirect: false,
-                callbackUrl: '/'
+                callbackUrl: '/profiles'
             })
 
-            router.push('/')
         } catch (err) {
             console.log(err)
         }
-    }, [email, password, router])
+    }, [email, password])
 
     // makes api request for registering the user
     const register = useCallback(async () => {
@@ -77,12 +72,11 @@ const Auth = () => {
                         </h2>
                         <div className="flex flex-col gap-4">
                             {variant === 'register' && (
-
-
                                 <Input
                                     label='Username'
                                     onChange={(e) => setName(e.target.value)}
-                                    id='email'
+                                    id='name'
+                                    type="text"
                                     value={name}
                                 />
                             )}
@@ -108,13 +102,13 @@ const Auth = () => {
                         </button>
                         <div className="flex flex-row items-center gap-4 mt-8 justify-center">
                             <div
-                                onClick={() => signIn('google', { callbackUrl: '/' })}
+                                onClick={() => signIn('google', { callbackUrl: '/profiles' })}
                                 className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
                                 <FcGoogle size={30} />
 
                             </div>
                             <div
-                                onClick={() => signIn('github', { callbackUrl: '/' })}
+                                onClick={() => signIn('github', { callbackUrl: '/profiles' })}
                                 className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
                                 <FaGithub size={30} />
 
