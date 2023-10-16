@@ -6,9 +6,9 @@ interface AccountMenuProps {
     visible?: boolean
 }
 
-const AccountMenu: React.FC<AccountMenuProps> = (
+const AccountMenu: React.FC<AccountMenuProps> = ({
     visible
-) => {
+}) => {
     if (!visible) {
         return null
     }
@@ -22,7 +22,7 @@ const AccountMenu: React.FC<AccountMenuProps> = (
                         width={44}
                         height={44} />
                     <p className='text-white text-sm group-hover/item:underline'>
-                        Username:
+                        Username
                     </p>
                 </div>
                 <hr className='bg-gray-600 border-0 h-px my-4' />
