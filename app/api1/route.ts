@@ -1,7 +1,7 @@
-// copies [...nextauth].ts from pages router; 
+// copies [...nextauth].ts from pages router;
 // whats the point of this???
 
-import NextAuth from "next-auth/next";
+/* import NextAuth from "next-auth/next";
 import Credentials from "next-auth/providers/credentials";
 import prismadb from '@/lib/prismadb'
 import { compare } from 'bcrypt'
@@ -59,7 +59,7 @@ export default NextAuth({
     },
     secret: process.env.NEXTAUTH_SECRET
 })
-
+ */
 // export async function GET(
 //     req: Request,
 //     res: NextResponse
